@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
-from app.helpers import redirect_url, get_posts_from_topic, check_if_voted
-from app.models import User, Post, Comment, Topic,find_users_post
+from app.helpers import redirect_url, get_posts_from_topic, check_if_voted, check_topic_exists
+from app.models import User, Post, Comment, Topic, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
 
@@ -24,7 +24,12 @@ def submit():
        upvotes, downvotes and importance, to avoid any TypeErrors."""
     form = SubmitForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
+        if check_topic_exists(form.topics.data):
+            topic = Topic.query.filter_by(tag_name=form.topics.data).first()
+            post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[topic])
+        elif not check_topic_exists(form.topics.data):
+            post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
+
         post.upvotes = 1
         post.downvotes = 0
         post.importance = 1

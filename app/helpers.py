@@ -2,6 +2,7 @@
 This code is used to store any helper functions...
 """
 from flask import request, url_for
+from app.models import Topic
 
 
 def redirect_url():
@@ -31,3 +32,10 @@ def check_if_voted(post, user):
             return True
         elif voter.id != user.id:
             return False
+
+def check_topic_exists(tag_name):
+    """Checks whether a topic exists."""
+    if Topic.query.filter_by(tag_name=tag_name).first() != None:
+        return True
+    elif Topic.query.filter_by(tag_name=tag_name).first() == None:
+        return False
