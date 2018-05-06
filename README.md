@@ -18,6 +18,15 @@ $ <env_name>\Scripts\activate
 
 (Replace `env_name` with whatever you want to call it)
 
+Prepare the database by doing:
+
+```bash
+$ flask db init
+$ flask dm migrate -m "users table"
+```
+
+This will initialise all of the tables in the models.py file.
+
 And then install all the necessary requirements using:
 
 ```bash
