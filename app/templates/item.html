@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% include '_post.html' %}
+
+    <div class=post-body>
+        <p>{{ post.text }}</p><br>
+    </div>
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+        {{ form.comment.label }}<br>
+        {{ form.comment(size=32) }}
+        {% for error in form.comment.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+
+     </form>
+
+    <div class=post-comments>
+        {% for comment in comments if comments %}
+            {% include '_comment.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+<table class="comment">
+    <tr valign="top">
+        {% if comment.post_id == comment.post.id %}
+            <td>{{ comment.text }} by: {{ comment.username }}</td>
+            {% if current_user.username == comment.username %}
+            <form action="{{ url_for('delete_comment', comment_id=comment.id,
+                post_id=comment.post_id) }}" method=post>
+                <input type="submit" value="Delete">
+            </form>
+            {% endif %}
+        {% endif %}
+    </tr>
+</table>

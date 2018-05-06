@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Posts with the {{ topic.tag_name }} topic</h1>
+
+    {% for post in topic.posts if post %}
+        {% include '_post.html' %}
+
+    {% else %}
+
+    <p>There seems to be no topic names that match this.</p>
+    <p>You can make a new topic by <a href="{{ url_for('submit') }}">making a new post</a></p>
+
+    {% endfor %}
+
+
+{% endblock %}

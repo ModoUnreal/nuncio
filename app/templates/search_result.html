@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Search</h1>
+
+    <h2>Posts that match:</h2>
+    {% for post in post_query if post %}
+
+        {% include '_post.html' %}
+
+    {% else %}
+        <p>There seems to be no posts here...</p>
+
+    {% endfor %}
+
+    <h2>Posts with topics that match:</h2>
+    {% for post in posts if post %}
+
+        {% include '_post.html' %}
+
+    {% else %}
+
+        <p>There seems to be no topic names that match this.</p>
+        <p>You can make a new topic by <a href="{{ url_for('submit') }}">making a new post</a></p>
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fair news, chosen by you</title>
+;   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+</head>
+<body>
+
+    <div class="menubar">
+
+        <a href="{{ url_for('index') }}">Main</a>
+
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+        <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
+        {% endif %}
+        <a href="{{ url_for('submit') }}">Submit an Article</a>
+
+        <div class="searchbar">
+
+            <form action="{{ url_for('search') }}" method=post>
+                <input type="text" name="search_str" placeholder="Search...">
+            </form>
+
+        </div>
+
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+
+    <br>
+    <hr>
+    <div class=footer>
+        <a href="{{ url_for('faq') }}">FAQ</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+        <a href="{{ url_for('rules') }}">Rules</a>
+    </div>
+</body>
+</html>
