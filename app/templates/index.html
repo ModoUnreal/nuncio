@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Nuntio.com: Fair news, chosen by you.</h1>
     {% for post in posts if posts %}
         {% include '_post.html' %}
     {% endfor %}

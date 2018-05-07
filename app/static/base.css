@@ -5,6 +5,14 @@ body {
     min-height: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
+hr{
+    opacity: 0.5;
+}
+
 
 .post-title td {
     font-family: arial, sans-serif;
@@ -12,13 +20,12 @@ body {
 
 #footer {
     position: fixed;
-    bottom: 0px;
+    text-align: center;
     width: 100%;
 }
 
-.footer a{
+#footer a{
     right: 0;
-    bottom: 0;
     left: 0;
     margin: 0px;
     padding: 1rem;
@@ -32,5 +39,30 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    width: 100%;
+    width: 70%;
+}
+
+#menu-container a {
+    width: 100px;
+    top: 0px;
+    float: right;
+}
+
+#container {
+    overflow: hidden;
+}
+
+#title {
+    float: left;
+    display: inline;
+}
+
+#searchbar {
+    float: left;
+    display: inline;
+}
+
+#bottom-links a {
+    font-weight: bold;
+    font-size: 12px;
 }

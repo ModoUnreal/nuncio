@@ -33,9 +33,11 @@
             <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
                 <input type="submit" name="important" value="important">
             </form>
-            <td><a href="{{ url_for('item', post_id=post.id) }}">View Comments</a></td>
     
         </tr>
-    
+
     </table>
+    <div id="bottom-links">
+        <a href="{{ url_for('item', post_id=post.id) }}">View Comments</a>
+    </div>
 </div>
