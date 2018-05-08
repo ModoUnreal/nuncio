@@ -114,6 +114,7 @@ class Post(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(140))
+    link = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(50))
@@ -132,6 +133,7 @@ class Post(db.Model):
 
 
     created_on = db.Column(db.DateTime, default=db.func.now())
+    is_link = db.Column(db.Boolean, default=True)
 
     def __repr__(self):
         return '<Post {}>'.format(self.text)

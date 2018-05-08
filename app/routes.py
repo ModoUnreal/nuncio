@@ -18,19 +18,35 @@ def index():
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
-def submit():
+def submit(): # The below code is ugly and so are you.
     """View function for the submit site, which contains a standard
        form. Creates initial variables for mutable variables like
        upvotes, downvotes and importance, to avoid any TypeErrors."""
     form = SubmitForm()
     if form.validate_on_submit():
+
+        # Checks whether the topic exists, so as to not make identical topics.
         if check_topic_exists(form.topics.data):
             topic = Topic.query.filter_by(tag_name=form.topics.data).first()
             post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[topic])
+
+
         elif not check_topic_exists(form.topics.data):
             post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
 
+        # Checks to see if post is link or url.
+        if form.link.data == None:
+            post.is_link = False
+
+        else:
+            post.is_link = True
+
+        if form.link.data == None and form.text.data == None:
+            flash("Please input either a link or text, or both.")
+            return redirect(url_for('submit'))
+
         post.upvotes = 1
+        post.link = form.link.data
         post.downvotes = 0
         post.importance = 1
         post.score = post.get_score()

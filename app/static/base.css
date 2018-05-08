@@ -52,6 +52,10 @@ input[type=text]:focus {
     overflow: hidden;
 }
 
+#container h1 a form {
+    display: inline-block;
+}
+
 #title {
     float: left;
     display: inline;
@@ -59,7 +63,6 @@ input[type=text]:focus {
 
 #searchbar {
     float: left;
-    display: inline;
 }
 
 #bottom-links a {

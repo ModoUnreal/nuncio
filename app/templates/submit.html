@@ -11,10 +11,22 @@
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
         </p>
-         <p>
+        <p>
         {{ form.text.label }}<br>
         {{ form.text(size=32) }}
         {% for error in form.text.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+
+        <br>
+        <p>or</p>
+        <br>
+
+        <p>
+        {{ form.link.label }}<br>
+        {{ form.link(size=32) }}
+        {% for error in form.link.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
         </p>
