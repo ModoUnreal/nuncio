@@ -27,15 +27,11 @@ def get_posts_from_topic(topic):
 
 def check_if_voted(post, user):
     """Checks whether a user has voted or not."""
-    for voter in post.voters:
-        if voter.id == user.id:
-            return True
-        elif voter.id != user.id:
-            return False
+    return any(voter.id == user.id for voter in post.voters)
 
 def check_topic_exists(tag_name):
     """Checks whether a topic exists."""
     if Topic.query.filter_by(tag_name=tag_name).first() != None:
         return True
-    elif Topic.query.filter_by(tag_name=tag_name).first() == None:
-        return False
+
+    return False
