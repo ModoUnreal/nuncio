@@ -25,9 +25,14 @@ def get_posts_from_topic(topic):
 
     return []
 
-def check_if_voted(post, user):
-    """Checks whether a user has voted or not."""
-    return any(voter.id == user.id for voter in post.voters)
+def check_if_upvoted(test_post, user):
+    """Checks whether a user has upvoted or not."""
+    return any(post.id == test_post.id for post in user.upvoted_on)
+
+def check_if_downvoted(test_post, user):
+    """Checks whether a user has downvoted or not."""
+    return any(post.id == test_post.id for post in user.downvoted_on)
+
 
 def check_topic_exists(tag_name):
     """Checks whether a topic exists."""

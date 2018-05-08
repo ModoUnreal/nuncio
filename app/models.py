@@ -9,8 +9,12 @@ topics_table = db.Table('topics_table',
         db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True),
         db.Column('topic_id', db.Integer, db.ForeignKey('topic.id'), primary_key=True))
 
-voters_table = db.Table('voters_table',
-        db.Column('voter_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+upvoters_table = db.Table('upvoters_table',
+        db.Column('upvoter_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True))
+
+downvoters_table = db.Table('downvoters_table',
+        db.Column('downvoter_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
         db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True))
 
 
@@ -43,10 +47,13 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
-    voted_on = db.relationship('Post',
-                    secondary=voters_table,
-                    backref="voters")
+    upvoted_on = db.relationship('Post',
+                    secondary=upvoters_table,
+                    backref="upvoters")
 
+    downvoted_on = db.relationship('Post',
+                    secondary=downvoters_table,
+                    backref="downvoters")
 
     def __repr__(self):
         return self.username  

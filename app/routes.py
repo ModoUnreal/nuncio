@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
-from app.helpers import redirect_url, get_posts_from_topic, check_if_voted, check_topic_exists
+from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, check_if_downvoted, check_topic_exists
 from app.models import User, Post, Comment, Topic, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
@@ -106,17 +106,29 @@ def vote(post_id):
         if post.upvotes == None:
             post.make_vote_int()
 
-        if "upvote" in request.form and not check_if_voted(post, current_user):
+        if "upvote" in request.form and not check_if_upvoted(post, current_user):
+
             post.upvotes = post.upvotes + 1
-            current_user.voted_on.append(post)
+ 
+            current_user.upvoted_on.append(post)
+
+            if check_if_downvoted(post, current_user):
+                post.downvotes = post.downvotes -1
+                current_user.downvoted_on.remove(post)
+
             db.session.commit()
             post.get_score()
             post.set_hotness()
             db.session.commit()
 
-        if "downvote" in request.form and not check_if_voted(post, current_user):
+        if "downvote" in request.form and not check_if_downvoted(post, current_user):
             post.downvotes = post.downvotes + 1
-            current_user.voted_on.append(post)
+            current_user.downvoted_on.append(post)
+
+            if check_if_upvoted(post, current_user):
+                post.upvotes = post.upvotes - 1
+                current_user.upvoted_on.remove(post)
+
             db.session.commit()
             post.get_score()
             post.set_hotness()
