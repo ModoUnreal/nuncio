@@ -3,6 +3,7 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 
 db = SQLAlchemy()
@@ -19,7 +20,7 @@ def create_app(debug=False):
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
-
+    bootstrap = Bootstrap(app)
 
     # Deal with any blueprints here
     from app.auth import bp as auth_bp
