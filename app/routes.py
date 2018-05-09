@@ -35,13 +35,13 @@ def submit(): # The below code is ugly and so are you.
             post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
 
         # Checks to see if post is link or url.
-        if form.link.data == None:
+        if form.link.data == "":
             post.is_link = False
 
         else:
             post.is_link = True
 
-        if form.link.data == None and form.text.data == None:
+        if form.link.data == "" and form.text.data == "":
             flash("Please input either a link or text, or both.")
             return redirect(url_for('submit'))
 
