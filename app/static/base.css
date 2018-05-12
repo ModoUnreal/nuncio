@@ -13,11 +13,6 @@ hr{
     opacity: 0.5;
 }
 
-
-.post-title td {
-    font-family: arial, sans-serif;
-}
-
 #footer {
     position: fixed;
     text-align: center;
@@ -71,8 +66,41 @@ hr{
     display: inline-block;
 }
 
+#post-title {
+    display: inline-block;
+}
+
+#post-title td {
+    float: left;
+    font-family: arial, sans-serif;
+}
+
+#voting{
+    width: 70px;
+    height: 60px;
+    display: inline-block;
+    float: left;
+}
+
+#bottom-links {
+    display: inline;
+}
+
 #bottom-links a {
     font-weight: bold;
     font-size: 12px;
     margin: 3px;
+}
+
+#bottom-links form{
+    display: inline;
+}
+
+#bottom-links input{
+    font-weight: bold;
+
+    background: none!important;
+    color: blue;
+    border: none;
+    cursor: pointer;
 }

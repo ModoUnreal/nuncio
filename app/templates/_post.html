@@ -12,28 +12,28 @@
                     
                 {% endif %}
 
-            <br>
-            {% for topic in post.topics if post.topics %}
-            <td><a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a></td>
-            {% endfor %}
+                <br>
+                {% for topic in post.topics if post.topics %}
+                <td><a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a></td>
+                {% endfor %}
 
-            <td>{{ post.hotness }}</td>
+                <td>{{ post.hotness }}</td>
+                <td>Score: {{ post.score }}</td>
             </div>
-
-            <td>Score: {{ post.score }}</td>
     
-            {% if current_user.username == post.author.username %}
-            <div class="post-delete">
-                <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
-                    <input type="submit" value="Delete">
+
+            <div id="voting">
+                <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
+                    <div id=upvote>
+                        <input type="submit" name="upvote" value="upvote">
+                    </div>
+
+                    <div id=downvote>
+                        <input type="submit" name="downvote" value="downvote">
+                    </div>
+
                 </form>
             </div>
-            {% endif %}
-
-            <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
-                <input type="submit" name="upvote" value="upvote">
-                <input type="submit" name="downvote" value="downvote">
-            </form>
 
             <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
                 <input type="submit" name="important" value="important">
@@ -42,7 +42,17 @@
         </tr>
 
     </table>
+
     <div id="bottom-links">
+
         <a href="{{ url_for('item', post_id=post.id) }}">View Comments</a>
+
+        {% if current_user.username == post.author.username %}
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
+                <input type="submit" value="Delete">
+
+            </form>
+        {% endif %}
+
     </div>
 </div>
