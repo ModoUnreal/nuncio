@@ -8,4 +8,4 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
             'sqlite:///' + os.path.join(base_dir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    POSTS_PER_PAGE = 10
+    POSTS_PER_PAGE = 3
