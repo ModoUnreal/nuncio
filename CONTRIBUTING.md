@@ -1,4 +1,5 @@
-# How to contribute
+# Contributing
+To start contributing to Nuncio either make an issue or a pull request of your fork.
 
 ## Reporting issues
 
@@ -8,8 +9,19 @@
 
 * List your Python and Flask versions.
 
-## Submitting patches
+* Include the browser you used to test the website.
 
-* Always run tests before and after making any changes.
+## How to make a Pull Request to this repo
 
-* Clearly explain what the changes actually do.
+1. Make a fork of this repo and make a local clone.
+2. Make the necessary edits.
+3. Run the tests provided and then make the pull request.
+
+### What to include in the pull request description
+
+* Firstly what do your edits do?
+
+* If this fixes any of the issues then please reference them , for example `issue #3`.
+
+## Code of Conduct
+As of right now there is no code of conduct file, so just play nice.
