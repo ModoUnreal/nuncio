@@ -193,10 +193,11 @@ def search_result(search_str):
        similar names."""
     post_query = Post.query.filter_by(title=search_str).all()
     topic_query = Topic.query.filter_by(tag_name=search_str).first()
+    user_query = User.query.filter_by(username=search_str).first()
 
     post_with_topic = get_posts_from_topic(topic_query)
 
-    return render_template('search_result.html', post_query=post_query, posts=post_with_topic)
+    return render_template('search_result.html', post_query=post_query, posts=post_with_topic, user=user_query)
 
 @app.route('/search_topic/<topic_query>', methods=['GET'])
 def search_topic(topic_query):

@@ -21,8 +21,16 @@
     {% else %}
 
         <p>There seems to be no topic names that match this.</p>
-        <p>You can make a new topic by <a href="{{ url_for('submit') }}">making a new post</a></p>
+        <p>You can make a new topic by <a href="{{ url_for('submit') }}">making a new post</a>.</p>
 
     {% endfor %}
+
+    <h2>User that has this username:</h2>
+    {% if user %}
+    <a href="{{ url_for('user', username=user.username) }}">{{ user.username }}</a>
+
+    {% else %}
+        <p>There seems to be no users with this username.</p>
+    {% endif %}
 
 {% endblock %}
