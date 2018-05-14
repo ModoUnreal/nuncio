@@ -1,6 +1,7 @@
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from flask_login import UserMixin
 from math import log
 
@@ -139,7 +140,7 @@ class Post(db.Model):
         return '<Post {}>'.format(self.text)
 
     def get_age(self):
-        self.age = (self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds()
+        self.age = int((self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds())
         return self.age
 
     def get_score(self):
@@ -148,10 +149,7 @@ class Post(db.Model):
 
     def get_hotness(self):
         self.get_age()
-        self.hotness = db.engine.execute("UPDATE post SET hotness=(upvotes - downvotes) * age / importance")
-
-    def set_hotness(self):
-        self.hotness = self.get_hotness()
+        self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))) / 45000)
         db.session.commit()
 
     def upvote(self):

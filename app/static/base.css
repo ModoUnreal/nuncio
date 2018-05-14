@@ -96,11 +96,12 @@ hr{
     display: inline;
 }
 
-#bottom-links input{
+#bottom-links input[type="submit"]{
     font-weight: bold;
-
-    background: none!important;
-    color: blue;
+    font-size: 12px;
+    background: none;
     border: none;
+    outline: none;
+    color: blue;
     cursor: pointer;
 }

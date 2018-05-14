@@ -54,7 +54,8 @@ def submit(): # The below code is ugly and so are you.
         post.upvotes = 1
         post.link = form.link.data
         post.downvotes = 0
-        post.importance = 1
+        post.importance = 10
+        post.hotness = post.get_hotness()
         post.score = post.get_score()
         db.session.add(post)
         db.session.commit()
@@ -138,9 +139,8 @@ def vote(post_id):
                 post.downvotes = post.downvotes -1
                 current_user.downvoted_on.remove(post)
 
-            db.session.commit()
             post.get_score()
-            post.set_hotness()
+            post.get_hotness()
             db.session.commit()
 
         if "downvote" in request.form and not check_if_downvoted(post, current_user):
@@ -151,9 +151,8 @@ def vote(post_id):
                 post.upvotes = post.upvotes - 1
                 current_user.upvoted_on.remove(post)
 
-            db.session.commit()
             post.get_score()
-            post.set_hotness()
+            post.get_hotness()
             db.session.commit()
 
     return redirect(redirect_url()) # Look at snippet 62
@@ -170,7 +169,7 @@ def give_importance(post_id):
         if post.importance == None:
             post.make_importance_int()
         post.importance = post.importance + 1
-        post.set_hotness()
+        post.get_hotness()
         db.session.commit()
 
     return redirect(redirect_url())
