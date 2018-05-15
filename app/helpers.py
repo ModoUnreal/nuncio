@@ -40,3 +40,7 @@ def check_topic_exists(tag_name):
         return True
 
     return False
+
+def check_if_given_importance(test_post, user):
+    """Checks whether a user has given importance to a post or not."""
+    return any(post.id == test_post.id for post in user.given_importance_to)

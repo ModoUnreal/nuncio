@@ -18,6 +18,10 @@ downvoters_table = db.Table('downvoters_table',
         db.Column('downvoter_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
         db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True))
 
+importance_givers_table = db.Table('importance_givers_table',
+        db.Column('importance_giver_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True))
+
 
 class User(UserMixin, db.Model):
     """Model for the user table.
@@ -55,6 +59,10 @@ class User(UserMixin, db.Model):
     downvoted_on = db.relationship('Post',
                     secondary=downvoters_table,
                     backref="downvoters")
+
+    given_importance_to = db.relationship('Post',
+                            secondary=importance_givers_table,
+                            backref='importance_givers')
 
     def __repr__(self):
         return self.username  
@@ -169,7 +177,7 @@ class Post(db.Model):
 
     def make_importance_int(self):
         if self.importance == None:
-            self.importance = 1
+            self.importance = 10
 
 
 class Comment(db.Model):

@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
-from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, check_if_downvoted, check_topic_exists
+from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, check_if_downvoted, check_topic_exists, check_if_given_importance
 from app.models import User, Post, Comment, Topic, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
@@ -165,10 +165,13 @@ def give_importance(post_id):
        
        The catch is that the user then loses 5 of his/her own points."""
     post = Post.query.filter_by(id=post_id).first()
-    if post != None:
+    if post != None and not check_if_given_importance(post, current_user):
+
         if post.importance == None:
             post.make_importance_int()
+
         post.importance = post.importance + 1
+        current_user.given_importance_to.append(post)
         post.get_hotness()
         db.session.commit()
 

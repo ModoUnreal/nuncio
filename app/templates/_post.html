@@ -35,17 +35,15 @@
                 </form>
             </div>
 
-            <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
-                <input type="submit" name="important" value="important">
-            </form>
-    
         </tr>
 
     </table>
 
     <div id="bottom-links">
 
-        <a href="{{ url_for('item', post_id=post.id) }}">View Comments</a>
+        <form action="{{ url_for('item', post_id=post.id) }}" method=get>
+            <input type="submit" value="View Comments">
+        </form>
 
         {% if current_user.username == post.author.username %}
             <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
@@ -53,6 +51,10 @@
 
             </form>
         {% endif %}
+
+        <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
+            <input type="submit" name="important" value="important">
+        </form>
 
     </div>
 </div>

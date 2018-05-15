@@ -54,6 +54,25 @@ class PostTestCase(TestCase):
         self.query = Post.query.filter_by(id=1).first()
         self.query = Post.query.filter_by(user_id=1).first()
 
+    def test_upvoting(self):
+        """Tests whether posts can be upvoted or not."""
+        self.post = Post(title="Title", text="Text", user_id=1, topics=[Topic(tag_name="topic1"), Topic(tag_name="topic2")], id=1)
+        self.post.upvotes = 1
+        db.session.add(self.post)
+        db.session.commit()
+
+        self.post.upvotes += 1
+        db.session.commit()
+
+    def test_downvoting(self):
+        """Tests whether posts can be downvoted or not."""
+        self.post = Post(title="Title", text="Text", user_id=1, topics=[Topic(tag_name="topic1"), Topic(tag_name="topic2")], id=1)
+        self.post.downvotes = 1
+        db.session.add(self.post)
+        db.session.commit()
+ 
+        self.post.downvotes += 1
+        db.session.commit()
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
