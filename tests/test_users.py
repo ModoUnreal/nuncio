@@ -81,7 +81,3 @@ class UserTestCase(TestCase):
 
         for i in self.user.given_importance_to:
             self.assertEqual(i.title, "Title")
-
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)

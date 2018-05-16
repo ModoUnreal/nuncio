@@ -13,4 +13,4 @@ install:
 
 script:
     cd tests
-    python test_posts.py
+    python run_tests.py

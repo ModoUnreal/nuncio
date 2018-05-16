@@ -72,6 +72,3 @@ class PostTestCase(TestCase):
  
         self.post.downvotes += 1
         db.session.commit()
-
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
