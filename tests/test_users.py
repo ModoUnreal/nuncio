@@ -30,7 +30,7 @@ class UserTestCase(TestCase):
         db.drop_all()
         self.app_context.pop()
 
-    def test_insert_user(self):
+    def test_register_user(self):
         """Tests whether users can be inserted into the database."""
         self.user = User(username="John", email="example@example.com", id=1)
         self.user.set_password("password")
@@ -59,8 +59,29 @@ class UserTestCase(TestCase):
         self.user = User(username="John", email="example@example.com", id=1)
         self.assertEqual("John", self.user.username)
 
+    def test_voting(self):
+        """Tests whether a user can up or downvote."""
+        self.post = Post(title="Title", text="Text")
+        self.user = User(username="John", email="example@example.com", id=1)
+        self.user.upvoted_on.append(self.post)
+
+        self.post = Post(title="Rick", text="Jaime")
+        self.user.downvoted_on.append(self.post)
+        for i in self.user.upvoted_on:
+            self.assertEqual(i.title, "Title")
+
+        for i in self.user.downvoted_on:
+            self.assertEqual(i.title, "Rick")
+
+    def test_giving_importance(self):
+        """Tests whether a user can give importance."""
+        self.post = Post(title="Title", text="Text")
+        self.user = User(username="John", email="example@example.com", id=1)
+        self.user.given_importance_to.append(self.post)
+
+        for i in self.user.given_importance_to:
+            self.assertEqual(i.title, "Title")
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
-
-

@@ -48,6 +48,6 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash('Congrats!!! You are now registered to Dopenet!')
+        flash('Congrats!!! You are now registered to Nuncio!')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
