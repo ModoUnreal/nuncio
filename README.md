@@ -18,11 +18,17 @@ $ <env_name>\Scripts\activate
 
 (Replace `env_name` with whatever you want to call it)
 
+Then set up the flask app as such:
+
+```bash
+$ set FLASK_APP=nuncio.py
+```
+
 Prepare the database by doing:
 
 ```bash
 $ flask db init
-$ flask dm migrate -m "users table"
+$ flask db migrate -m "users table"
 ```
 
 This will initialise all of the tables in the models.py file.
