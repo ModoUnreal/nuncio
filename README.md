@@ -21,6 +21,12 @@ $ <env_name>\Scripts\activate
 Then set up the flask app as such:
 
 ```bash
+$ export FLASK_APP=nuncio.py
+```
+
+Or if you are using Windows:
+
+```bash
 $ set FLASK_APP=nuncio.py
 ```
 
