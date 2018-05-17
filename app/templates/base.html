@@ -6,42 +6,44 @@
 </head>
 <body>
 
-<header>
-    <div id="container">
-        <div id="title">
-            <h1><a href="{{ url_for('index') }}">Nuntio</a></h1>
-        </div>
-    
-        <div id="searchbar">
-     
-            <form action="{{ url_for('search') }}" method=post>
-                <input type="text" name="search_str" placeholder="Search...">
-            </form>
-     
-        </div>
-    
-        <div id="menu">
-            <div id="menu-container">
-                <a href="{{ url_for('submit') }}">Submit</a>
-                <br>
-                <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
-                <br>
-
-
-                {% if current_user.is_anonymous %}
-                <a href="{{ url_for('auth.login') }}">Login</a>
-                {% else %}
-                <a href="{{ url_for('auth.logout') }}">Logout</a>
-                {% endif %}
+    <header>
+        <div id="container">
+            <div id="title">
+                <h1><a href="{{ url_for('index') }}">Nuntio</a></h1>
             </div>
+        
+       
+            <div id="menu">
+                <div id="menu-container">
+                    <a href="{{ url_for('submit') }}">Submit</a>
+                    <br>
+                    <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
+                    <br>
+
+
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                    {% else %}
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
+    </header>
 
-    </div>
-</header>
 
-</div>
-    </div>
     <hr>
+    <div id="searchbar">
+ 
+        <form action="{{ url_for('search') }}" method=post>
+            <input type="text" name="search_str" placeholder="Search...">
+        </form>
+ 
+    </div>
+    <br>
+ 
+
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>

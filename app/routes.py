@@ -5,6 +5,7 @@ from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, ch
 from app.models import User, Post, Comment, Topic, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
+import datetime
 
 
 @app.route('/')
@@ -13,14 +14,8 @@ from app import app, db
 def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.hotness.desc()).paginate(
-            page, app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('index', page=posts.next_num) \
-            if posts.has_next else None
-    prev_url = url_for('index', page=posts.prev_num) \
-            if posts.has_prev else None
-    return render_template('index.html', title='Dopenet: You can do anything', posts=posts.items, next_url=next_url, prev_url=prev_url)
+    posts = Post.query.order_by(Post.hotness.desc()).all()
+    return render_template('index.html', title='Fair news, chosen by you.', posts=posts)
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -55,6 +50,7 @@ def submit(): # The below code is ugly and so are you.
         post.link = form.link.data
         post.downvotes = 0
         post.importance = 10
+        post.timestamp = datetime.datetime.utcnow()
         post.hotness = post.get_hotness()
         post.score = post.get_score()
         db.session.add(post)

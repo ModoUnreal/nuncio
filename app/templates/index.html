@@ -2,9 +2,11 @@
 
 {% block content %}
     {% for post in posts if posts %}
-        {% include '_post.html' %}
+        {% include '_post_center.html' %}
     {% endfor %}
 
+
+<!--
     {% if prev_url %}
         <br>
         <a href="{{ prev_url }}">Back</a>
@@ -13,5 +15,6 @@
         <br>
         <a href="{{ next_url }}">Next</a>
     {% endif %}
+-->
 
 {% endblock %}
