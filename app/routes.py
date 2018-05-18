@@ -2,6 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, check_if_downvoted, check_topic_exists, check_if_given_importance
+from app.decorators import update_user
 from app.models import User, Post, Comment, Topic, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
@@ -11,6 +12,7 @@ import datetime
 @app.route('/')
 @app.route('/index')
 @login_required
+@update_user
 def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
@@ -19,6 +21,7 @@ def index():
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
+@update_user
 def submit():
     """View function for the submit site, which contains a standard
        form. Creates initial variables for mutable variables like

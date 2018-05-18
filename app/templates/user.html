@@ -2,6 +2,8 @@
 
 {% block content %}
     <h1>User: {{ user.username }}</h1>
+    <h3>Score: {{ user.scores }}</h3>
+
     <hr>
     {% for post in posts if posts %}
         {% include '_post.html' %}

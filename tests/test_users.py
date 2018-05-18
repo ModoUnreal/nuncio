@@ -96,4 +96,3 @@ class UserTestCase(TestCase):
         db.session.commit()
 
         self.assertEqual(self.user.sum_post_scores(), 1)
-        
