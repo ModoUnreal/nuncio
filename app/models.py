@@ -50,6 +50,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    score = db.Column(db.Integer)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     upvoted_on = db.relationship('Post',
@@ -74,6 +75,12 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         """Checks if the password hash is equal to the plain text password."""
         return check_password_hash(self.password_hash, password)
+
+    def sum_post_scores(self):
+        """Sums the scores of all the posts made by the user."""
+        self.scores = sum([i.score for i in self.posts])
+        db.session.commit()
+        return self.scores
 
 
 class Post(db.Model):
@@ -149,23 +156,17 @@ class Post(db.Model):
 
     def get_age(self):
         self.age = int((self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds())
+        db.session.commit()
         return self.age
 
     def get_score(self):
         self.score = self.upvotes - self.downvotes
+        db.session.commit()
         return self.score
 
     def get_hotness(self):
         self.get_age()
         self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))) / 45000)
-        db.session.commit()
-
-    def upvote(self):
-        self.upvotes = int(self.upvotes) + 1
-        db.session.commit()
-
-    def downvote(self):
-        self.downvotes = int(self.downvote) + 1
         db.session.commit()
 
     def make_vote_int(self):
@@ -178,6 +179,7 @@ class Post(db.Model):
     def make_importance_int(self):
         if self.importance == None:
             self.importance = 10
+            db.session.commit()
 
 
 class Comment(db.Model):

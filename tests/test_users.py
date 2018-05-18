@@ -81,3 +81,19 @@ class UserTestCase(TestCase):
 
         for i in self.user.given_importance_to:
             self.assertEqual(i.title, "Title")
+
+    def test_sum_post_scores(self):
+        """Tests to see whether the program can iterate through a users
+           post's score."""
+        self.user = User(username="John", email="example@example.com", id=1)
+        db.session.add(self.user)
+        db.session.commit()
+        self.post = Post(title="Title", text="Text", user_id=self.user.id)
+        self.post.upvotes = 1
+        self.post.downvotes = 0
+        self.post.score = self.post.get_score()
+        db.session.add(self.post)
+        db.session.commit()
+
+        self.assertEqual(self.user.sum_post_scores(), 1)
+        

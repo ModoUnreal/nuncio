@@ -19,7 +19,7 @@ def index():
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
-def submit(): # The below code is ugly and so are you.
+def submit():
     """View function for the submit site, which contains a standard
        form. Creates initial variables for mutable variables like
        upvotes, downvotes and importance, to avoid any TypeErrors."""
@@ -124,6 +124,7 @@ def vote(post_id):
     if post != None:
         if post.upvotes == None:
             post.make_vote_int()
+            db.session.commit()
 
         if "upvote" in request.form and not check_if_upvoted(post, current_user):
 
