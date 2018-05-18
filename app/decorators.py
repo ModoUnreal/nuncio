@@ -10,7 +10,7 @@ def update_user(func):
        page."""
     @wraps(func)
     def update_user_decorator(*args, **kwargs):
-        current_user.score = current_user.sum_post_scores()
+        current_user.scores = current_user.sum_post_scores()
         db.session.commit()
         return func(*args, **kwargs)
 

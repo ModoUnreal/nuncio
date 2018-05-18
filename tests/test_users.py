@@ -86,6 +86,7 @@ class UserTestCase(TestCase):
         """Tests to see whether the program can iterate through a users
            post's score."""
         self.user = User(username="John", email="example@example.com", id=1)
+        self.user.importance_debt = 0
         db.session.add(self.user)
         db.session.commit()
         self.post = Post(title="Title", text="Text", user_id=self.user.id)

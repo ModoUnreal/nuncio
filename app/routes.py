@@ -127,6 +127,7 @@ def vote(post_id):
     if post != None:
         if post.upvotes == None:
             post.make_vote_int()
+            post.author.sum_post_scores()
             db.session.commit()
 
         if "upvote" in request.form and not check_if_upvoted(post, current_user):
@@ -136,11 +137,12 @@ def vote(post_id):
             current_user.upvoted_on.append(post)
 
             if check_if_downvoted(post, current_user):
-                post.downvotes = post.downvotes -1
+                post.downvotes = post.downvotes - 1
                 current_user.downvoted_on.remove(post)
 
             post.get_score()
             post.get_hotness()
+            post.author.sum_post_scores()
             db.session.commit()
 
         if "downvote" in request.form and not check_if_downvoted(post, current_user):
@@ -153,6 +155,7 @@ def vote(post_id):
 
             post.get_score()
             post.get_hotness()
+            post.author.sum_post_scores()
             db.session.commit()
 
     return redirect(redirect_url()) # Look at snippet 62
@@ -171,6 +174,9 @@ def give_importance(post_id):
             post.make_importance_int()
 
         post.importance = post.importance + 1
+
+        current_user.importance_debt = current_user.importance_debt + 5
+
         current_user.given_importance_to.append(post)
         post.get_hotness()
         db.session.commit()

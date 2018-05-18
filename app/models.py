@@ -51,6 +51,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     scores = db.Column(db.Integer)
+    importance_debt = db.Column(db.Integer)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     upvoted_on = db.relationship('Post',
@@ -78,7 +79,7 @@ class User(UserMixin, db.Model):
 
     def sum_post_scores(self):
         """Sums the scores of all the posts made by the user."""
-        self.scores = sum([i.score for i in self.posts])
+        self.scores = (sum([i.score for i in self.posts])) - self.importance_debt
         db.session.commit()
         return self.scores
 
