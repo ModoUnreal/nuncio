@@ -30,20 +30,24 @@ Or if you are using Windows:
 $ set FLASK_APP=nuncio.py
 ```
 
-Prepare the database by doing:
-
-```bash
-$ flask db init
-$ flask db migrate -m "users table"
-```
-
-This will initialise all of the tables in the models.py file.
-
 And then install all the necessary requirements using:
 
 ```bash
 $ pip install -r requirements.txt
 ```
+
+Prepare the database by doing:
+
+```bash
+$ flask db init
+$ flask db migrate -m "users table"
+$ flask db upgrade
+```
+
+This will initialise all of the tables in the models.py file.
+
+
+Then run the server....
 
 ```bash
 $ python nuncio.py
