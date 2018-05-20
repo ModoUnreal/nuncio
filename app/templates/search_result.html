@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h1>Search</h1>
+    <h3>Search</h3>
 
-    <h2>Posts that match:</h2>
+    <h4>Posts that match:</h4>
     {% for post in post_query if post %}
 
         {% include '_post.html' %}
@@ -13,7 +13,7 @@
 
     {% endfor %}
 
-    <h2>Posts with topics that match:</h2>
+    <h4>Posts with topics that match:</h4>
     {% for post in posts if post %}
 
         {% include '_post.html' %}
@@ -25,7 +25,7 @@
 
     {% endfor %}
 
-    <h2>User that has this username:</h2>
+    <h4>User that has this username:</h4>
     {% if user %}
     <a href="{{ url_for('user', username=user.username) }}">{{ user.username }}</a>
 

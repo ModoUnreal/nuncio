@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>User: {{ user.username }}</h1>
+    <h3>User: {{ user.username }}</h3>
     {% if user.scores %}
-        <h3>Score: {{ user.scores }}</h3>
+        <h4>Score: {{ user.scores }}</h4>
 
     {% else %}
 
-        <h3>Score: 0</h3>
+        <h4>Score: 0</h4>
 
     {% endif %}
 

@@ -6,9 +6,9 @@
 
             <div class="post-title">
                 {% if post.is_link %}
-                    <td><a href="{{ post.link }}">{{ post.title }}</a> by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></td>
+                <td><a href="{{ post.link }}">{{ post.title }}</a></td>
                 {% else %}
-                    <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></td>
+                    <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a></td>
                     
                 {% endif %}
 
@@ -17,7 +17,6 @@
                 <td><a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a></td>
                 {% endfor %}
 
-                <td>{{ post.hotness }}</td>
                 <td>Score: {{ post.score }}</td>
             </div>
     
@@ -38,6 +37,10 @@
         </tr>
 
     </table>
+
+    <div id="extended-information">
+        <p>by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></p>
+    </div>        
 
     <div id="bottom-links">
 

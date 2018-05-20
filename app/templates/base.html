@@ -2,33 +2,36 @@
 <html>
 <head>
     <title>Fair news, chosen by you</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
     <script type="text/javascript" src="static/js/jquery-3.3.1.min.js"></script>
 </head>
+
 <body>
 
     <header>
         <div id="container">
-            <div id="title">
-                <h1><a href="{{ url_for('index') }}">Nuntio</a></h1>
-            </div>
-        
-       
-            <div id="menu">
-                <div id="menu-container">
-                    <a href="{{ url_for('submit') }}">Submit</a>
-                    <br>
-                    <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
-                    <br>
-
-
-                    {% if current_user.is_anonymous %}
-                    <a href="{{ url_for('auth.login') }}">Login</a>
-                    {% else %}
-                    <a href="{{ url_for('auth.logout') }}">Logout</a>
-                    {% endif %}
+            <nav>
+                <div id="title">
+                    <h1><a href="{{ url_for('index') }}">Nuntio</a></h1>
                 </div>
-            </div>
+            
+           
+                <div id="menu">
+                    <div id="menu-container">
+                        <a href="{{ url_for('submit') }}">Submit</a>
+                        <br>
+                        <a href="{{ url_for('user', username=current_user.username) }}">{{ current_user.username }}</a>
+                        <br>
+    
+                        {% if current_user.is_anonymous %}
+                        <a href="{{ url_for('auth.login') }}">Login</a>
+                        {% else %}
+                        <a href="{{ url_for('auth.logout') }}">Logout</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
 
         </div>
     </header>
@@ -54,14 +57,15 @@
     </ul>
     {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
 
     <br>
+    {% block content %}{% endblock %}
+
     <hr>
-    <div id=footer>
+    <footer>
         <a href="{{ url_for('faq') }}">FAQ</a>
         <a href="{{ url_for('contact') }}">Contact</a>
         <a href="{{ url_for('rules') }}">Rules</a>
-    </div>
+    </footer>
 </body>
 </html>
