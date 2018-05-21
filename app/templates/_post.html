@@ -24,11 +24,11 @@
             <div id="voting">
                 <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
                     <div id=upvote>
-                        <input type="submit" name="upvote" value="upvote" style='width:70px;'>
+                        <input type="submit" name="upvote" value=""> 
                     </div>
 
                     <div id=downvote>
-                        <input type="submit" name="downvote" value="downvote" style='width:70px;'>
+                        <input type="submit" name="downvote" value="" style='width:70px;'>
                     </div>
 
                 </form>

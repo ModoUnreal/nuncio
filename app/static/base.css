@@ -88,6 +88,26 @@ footer a{
     float: left;
 }
 
+#upvote input{
+    width: 40px;
+    height: 40px;
+    background:url("img/arrow_up_normal.png") no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+#downvote input{
+    width: 40px;
+    height: 40px;
+    background:url("img/arrow_down_normal.png") no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+#post-body {
+    margin-left: 78px;
+}
+
 #extended-information {
     display: inline-block;
     color: #888;
