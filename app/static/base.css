@@ -96,6 +96,16 @@ footer a{
     cursor: pointer;
 }
 
+#upvote {
+    width: 30px;
+    height: 30px;
+}
+
+#downvote {
+    width: 30px;
+    height: 30px;
+}
+
 #downvote input{
     width: 40px;
     height: 40px;
