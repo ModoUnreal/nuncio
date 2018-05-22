@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT nuncio-site.wsgi:application
+web: waitress-serve --port=$PORT python nuncio.py
