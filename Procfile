@@ -1,1 +1,1 @@
-web: export FLASK_APP=nuncio.py python nuncio.py
+web: waitress-serve --port=$PORT nuncio-site.wsgi:application
