@@ -131,7 +131,7 @@ class Post(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(140))
-    link = db.Column(db.String(140))
+    link = db.Column(db.String(240))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(50))
