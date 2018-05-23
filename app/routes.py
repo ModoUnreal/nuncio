@@ -11,8 +11,6 @@ import datetime
 
 @app.route('/')
 @app.route('/index')
-@login_required
-@update_user
 def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
@@ -64,7 +62,6 @@ def submit():
     return render_template('submit.html', title='Submit', form=form)
 
 @app.route('/user/<username>')
-@login_required
 def user(username):
     """View function for the user profile page. May become deprecated
        as there isn't much use for it, except for listing specific posts."""
@@ -117,6 +114,7 @@ def delete_post(post_id):
     return redirect(url_for('index'))
 
 @app.route('/vote/<post_id>', methods=['POST'])
+@login_required
 def vote(post_id):
     """View function which allows users to vote a post.
        Voting is allowed anywhere as long as there is a post to vote on,
@@ -161,6 +159,7 @@ def vote(post_id):
     return redirect(redirect_url()) # Look at snippet 62
 
 @app.route('/give_importance/<post_id>', methods=['POST'])
+@login_required
 def give_importance(post_id):
     """A function which allows users to give importance.
        How this works is simple. A user would give a post importance,

@@ -1,5 +1,5 @@
 from flask import request, url_for
-from flask_login import current_user
+from flask_login import current_user, AnonymousUserMixin
 from functools import wraps
 from app.models import User, Post, Topic
 from app import db
