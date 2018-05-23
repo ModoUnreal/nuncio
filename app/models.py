@@ -134,7 +134,7 @@ class Post(db.Model):
     link = db.Column(db.String(240))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(100))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
     score = db.Column(db.Float)
