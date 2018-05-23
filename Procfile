@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT python nuncio.py
+web: waitress-serve --port=$PORT nuncio:app
