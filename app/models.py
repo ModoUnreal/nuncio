@@ -130,7 +130,7 @@ class Post(db.Model):
     Posts-Topics = Many to Many
     """
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(140))
+    text = db.Column(db.String(100))
     link = db.Column(db.String(240))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
