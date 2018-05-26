@@ -149,3 +149,9 @@ footer a{
     color: #888;
     cursor: pointer;
 }
+
+#bottom-links a {
+    font-size: 10px;
+    text-decoration: none;
+    background-color: lightblue;
+}

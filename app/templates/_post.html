@@ -13,10 +13,6 @@
                 {% endif %}
 
                 <br>
-                {% for topic in post.topics if post.topics %}
-                <td><a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a></td>
-                {% endfor %}
-
                 <td>Score: {{ post.score }}</td>
             </div>
     
@@ -58,6 +54,10 @@
         <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
             <input type="submit" name="important" value="important">
         </form>
+
+        {% for topic in post.topics if post.topics %}
+        <a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a>
+        {% endfor %}
 
     </div>
 </div>
