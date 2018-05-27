@@ -19,13 +19,60 @@
 
             <div id="voting">
                 <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
-                    <div id=upvote>
-                        <input type="submit" name="upvote" value=""> 
-                    </div>
+                    {% for upvoter in post.upvoters if post.upvoters %}
 
-                    <div id=downvote>
-                        <input type="submit" name="downvote" value="" style='width:70px;'>
-                    </div>
+                        {% if upvoter.id == current_user.id %}
+                            <div id=upvote>
+                                <input type="submit" name="upvote" value="" style="background-position: -40px;">
+                            </div>
+
+                        {% endif %}
+    
+                        {% if upvoter.id != current_user.id %}
+    
+                            <div id=upvote>
+                                <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if not post.upvoters %}
+
+                         <div id=upvote>                   
+                             <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
+                         </div>
+
+                    {% endif %}
+
+
+                    {% for downvoter in post.downvoters if post.downvoters %}
+
+                        {% if downvoter.id == current_user.id %}
+                            <div id=downvote>
+                                <input type="submit" name="downvote" value="" style="background-position: -40px;">
+                            </div>
+
+                        {% endif %}
+    
+                        {% if downvoter.id != current_user.id %}
+    
+                            <div id=downvote>
+                                <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
+                            </div>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {% if not post.downvoters %}
+
+                         <div id=downvote>                   
+                             <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
+                         </div>
+
+                    {% endif %}
 
                 </form>
             </div>
