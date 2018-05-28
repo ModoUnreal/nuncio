@@ -29,55 +29,28 @@
 
             <div id="voting">
                 <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
-                    {% for upvoter in post.upvoters if post.upvoters %}
+                    {% if check_if_upvoted(post, current_user) %}
 
-                        {% if upvoter.id == current_user.id %}
-                            <div id=upvote>
-                                <input type="submit" name="upvote" value="" style="background-position: -40px;">
-                            </div>
+                         <div id=upvote>                   
+                             <input type="submit" name="upvote" value="" style="background-position: -40px;"> 
+                         </div>
 
-                        {% endif %}
-    
-                        {% if upvoter.id != current_user.id %}
-    
-                            <div id=upvote>
-                                <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
-                            </div>
-
-                        {% endif %}
-
-                    {% endfor %}
-
-                    {% if not post.upvoters %}
-
+                    {% else %}
+                       
                          <div id=upvote>                   
                              <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
                          </div>
 
                     {% endif %}
 
+                    {% if check_if_downvoted(post, current_user) %}
 
-                    {% for downvoter in post.downvoters if post.downvoters %}
+                         <div id=downvote>                   
+                             <input type="submit" name="downvote" value="" style="background-position: -40px;"> 
+                         </div>
 
-                        {% if downvoter.id == current_user.id %}
-                            <div id=downvote>
-                                <input type="submit" name="downvote" value="" style="background-position: -40px;">
-                            </div>
-
-                        {% endif %}
-    
-                        {% if downvoter.id != current_user.id %}
-    
-                            <div id=downvote>
-                                <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
-                            </div>
-
-                        {% endif %}
-
-                    {% endfor %}
-
-                    {% if not post.downvoters %}
-
+                    {% else %}
+                       
                          <div id=downvote>                   
                              <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
                          </div>

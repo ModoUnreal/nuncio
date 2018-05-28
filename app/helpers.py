@@ -2,6 +2,7 @@
 This code is used to store any helper functions...
 """
 from flask import request, url_for
+from flask_login import AnonymousUserMixin
 from app.models import Topic
 
 
@@ -27,11 +28,17 @@ def get_posts_from_topic(topic):
 
 def check_if_upvoted(test_post, user):
     """Checks whether a user has upvoted or not."""
-    return any(post.id == test_post.id for post in user.upvoted_on)
+    if type(user) == AnonymousUserMixin:
+        return False
+    else:
+        return any(post.id == test_post.id for post in user.upvoted_on)
 
 def check_if_downvoted(test_post, user):
     """Checks whether a user has downvoted or not."""
-    return any(post.id == test_post.id for post in user.downvoted_on)
+    if type(user) == AnonymousUserMixin:
+        return False
+    else:
+        return any(post.id == test_post.id for post in user.downvoted_on)
 
 
 def check_topic_exists(tag_name):

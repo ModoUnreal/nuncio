@@ -15,7 +15,9 @@ def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
     posts = Post.query.order_by(Post.hotness.desc()).all()
-    return render_template('index.html', title='Fair news, chosen by you.', posts=posts)
+    return render_template('index.html', title='Fair news, chosen by you.',
+            posts=posts, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted)
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -67,7 +69,8 @@ def user(username):
        as there isn't much use for it, except for listing specific posts."""
     user = User.query.filter_by(username=username).first_or_404()
     posts = find_users_post(user)
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user.html', user=user, posts=posts, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted)
 
 @app.route('/item/<post_id>', methods=['GET', 'POST'])
 def item(post_id):
@@ -88,7 +91,8 @@ def item(post_id):
     comments = Comment.query.filter_by(post_id=post.id)
     user = post.author
     return render_template('item.html', user=user, post=post,
-            comments=comments, form=form)
+            comments=comments, form=form, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted)
 
 
 @app.route('/delete_comment/<post_id>/<comment_id>', methods=['POST'])
@@ -204,13 +208,15 @@ def search_result(search_str):
 
     post_with_topic = get_posts_from_topic(topic_query)
 
-    return render_template('search_result.html', post_query=post_query, posts=post_with_topic, user=user_query)
+    return render_template('search_result.html', post_query=post_query,
+            posts=post_with_topic, user=user_query, check_if_upvoted=check_if_upvoted, check_if_downvoted=check_if_downvoted)
 
 @app.route('/search_topic/<topic_query>', methods=['GET'])
 def search_topic(topic_query):
     """Shows a list of posts under the specific tag being queried."""
     topic = Topic.query.filter_by(id=topic_query).first()
-    return render_template('topic.html', topic=topic)
+    return render_template('topic.html', topic=topic, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted)
 
 @app.route('/faq', methods=['GET'])
 def faq():
