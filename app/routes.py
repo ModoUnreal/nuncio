@@ -234,3 +234,7 @@ def rules():
     # Should "be substantial" be a rule/motto?
     return render_template('rules.html')
 
+@app.route('/about', methods=['GET'])
+def about():
+    """Returns the about html file."""
+    return render_template('about.html')

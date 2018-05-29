@@ -155,3 +155,12 @@ footer a{
     text-decoration: none;
     background-color: lightblue;
 }
+
+#about-text {
+    text-align: center;
+    padding-left: 10px;
+}
+
+#about-text p {
+    font-size: 15px;
+}
