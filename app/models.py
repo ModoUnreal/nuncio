@@ -148,6 +148,7 @@ class Post(db.Model):
                     secondary=topics_table,
                     backref="posts")
 
+    event = db.Column(db.String(150))
 
     created_on = db.Column(db.DateTime, default=db.func.now())
     is_link = db.Column(db.Boolean, default=True)

@@ -20,6 +20,7 @@ class SubmitForm(FlaskForm):
     topics = StringField('Topics', validators=[DataRequired()])
     text = StringField('Text', validators=[Length(min=0, max=100)])
     link = StringField('Link', validators=[Length(min=0, max=240)])
+    event = StringField('Event', validators=[Length(min=0, max=150)])
     submit = SubmitField('Send')
 
 class CommentForm(FlaskForm):

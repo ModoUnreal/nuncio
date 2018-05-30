@@ -40,6 +40,14 @@
         {% endfor %}
         </p>
 
+        <p>
+        {{ form.event.label }}<br>
+        {{ form.event(size=32) }}
+        {% for error in form.event.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        </p>
+
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

@@ -32,7 +32,9 @@ class PostTestCase(TestCase):
 
     def test_submit(self):
         """Tests whether posts can be put inside the database."""
-        self.post = Post(title="Title", text="Text", user_id=1, topics=[Topic(tag_name="topic1"), Topic(tag_name="topic2")])
+        self.post = Post(title="Title", text="Text", user_id=1,
+                    topics=[Topic(tag_name="topic1"),
+                    Topic(tag_name="topic2")], event="Test")
         self.post.upvotes = 1
         self.post.downvotes = 0
         self.post.importance = 1

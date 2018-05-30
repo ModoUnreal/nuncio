@@ -14,10 +14,17 @@ import datetime
 def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
-    posts = Post.query.order_by(Post.hotness.desc()).all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.hotness.desc()).paginate(
+            page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+            if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+            if posts.has_prev else None
+
     return render_template('index.html', title='Fair news, chosen by you.',
-            posts=posts, check_if_upvoted=check_if_upvoted,
-            check_if_downvoted=check_if_downvoted)
+            posts=posts.items, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted, next_url=next_url, prev_url=prev_url)
 
 @app.route('/submit', methods=['GET', 'POST'])
 @login_required
@@ -36,7 +43,10 @@ def submit():
 
 
         elif not check_topic_exists(form.topics.data):
-            post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
+            post = Post(title=form.title.data, text=form.text.data,
+                    user_id=current_user.id,
+                    topics=[Topic(tag_name=form.topics.data)],
+                    event=form.event.data)
 
         # Checks to see if post is link or url.
         if form.link.data == "":
