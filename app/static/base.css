@@ -72,20 +72,15 @@ footer a{
     padding-left: 5px;
 }
 
-#post-title {
-    display: inline-block;
-}
-
-#post-title td {
-    float: left;
-    font-family: arial, sans-serif;
-}
-
 #voting{
-    width: 70px;
-    height: 60px;
+    width: 60px;
+    height: 70px;
     display: inline-block;
     float: left;
+}
+
+#post-score {
+    margin-bottom: 0px;    
 }
 
 #upvote input{
@@ -104,6 +99,7 @@ footer a{
 #downvote {
     width: 30px;
     height: 30px;
+    margin-top: 0px;
 }
 
 #downvote input{
@@ -125,19 +121,13 @@ footer a{
     font-size: 12px;
 }
 
-
 #bottom-links {
     display: inline;
 }
 
-#bottom-links a {
-    font-weight: bold;
-    font-size: 12px;
-    margin: 3px;
-}
-
 #bottom-links form{
     display: inline;
+    width: 0px;
 }
 
 #bottom-links input[type="submit"]{
@@ -148,10 +138,13 @@ footer a{
     outline: none;
     color: #888;
     cursor: pointer;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #bottom-links a {
     font-size: 10px;
+    font-weight: bold;
     text-decoration: none;
     background-color: lightblue;
 }

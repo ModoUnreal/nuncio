@@ -4,7 +4,8 @@
 
         <tr valign="top">
 
-            <div class="post-title">
+   
+            <div id="post-title">
                 {% if post.is_link %}
                     <td><a href="{{ post.link }}">{{ post.title }}</a></td>
                 {% else %}
@@ -12,50 +13,55 @@
                     
                 {% endif %}
 
-                <br>
-                <td>Score: {{ post.score }}</td>
             </div>
-    
 
             <div id="voting">
-                <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
-                    {% if check_if_upvoted(post, current_user) %}
 
-                         <div id=upvote>                   
-                             <input type="submit" name="upvote" value="" style="background-position: -40px;"> 
-                         </div>
 
-                    {% else %}
-                       
-                         <div id=upvote>                   
-                             <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
-                         </div>
+                <div id="voting-form">
+                    <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
+    
+                        {% if check_if_upvoted(post, current_user) %}
+    
+                             <div id=upvote>                   
+                                 <input type="submit" name="upvote" value="" style="background-position: -40px;"> 
+                             </div>
+    
+                        {% else %}
+                           
+                             <div id=upvote>                   
+                                 <input type="submit" name="upvote" value="" style="background-position: 0px;"> 
+                             </div>
+    
+                        {% endif %}
 
-                    {% endif %}
-
-                    {% if check_if_downvoted(post, current_user) %}
-
-                         <div id=downvote>                   
-                             <input type="submit" name="downvote" value="" style="background-position: -40px;"> 
-                         </div>
-
-                    {% else %}
-                       
-                         <div id=downvote>                   
-                             <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
-                         </div>
-
-                    {% endif %}
-
-                </form>
+    
+                        {% if check_if_downvoted(post, current_user) %}
+    
+                             <div id=downvote>                   
+                                 <input type="submit" name="downvote" value="" style="background-position: -40px;"> 
+                             </div>
+    
+                        {% else %}
+                           
+                             <div id=downvote>                   
+                                 <input type="submit" name="downvote" value="" style="background-position: 0px;"> 
+                             </div>
+    
+                        {% endif %}
+    
+                    </form>
+                </div>
             </div>
 
         </tr>
 
     </table>
 
+
+
     <div id="extended-information">
-        <p>by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></p>
+        <p>by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a> Score: {{ post.score }}</p>
     </div> 
 
     <div id="bottom-links">
