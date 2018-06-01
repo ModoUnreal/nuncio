@@ -39,7 +39,8 @@ def submit():
         # Checks whether the topic exists, so as to not make identical topics.
         if check_topic_exists(form.topics.data):
             topic = Topic.query.filter_by(tag_name=form.topics.data).first()
-            post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[topic])
+            post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[topic],
+                    event=form.event.data)
 
 
         elif not check_topic_exists(form.topics.data):
