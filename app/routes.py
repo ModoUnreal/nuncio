@@ -192,7 +192,8 @@ def give_importance(post_id):
         current_user.importance_debt = current_user.importance_debt + 5
 
         current_user.given_importance_to.append(post)
-        post.get_hotness()
+        current_user.scores = current_user.sum_post_scores()
+        post.hotness = post.get_hotness()
         db.session.commit()
 
     return redirect(redirect_url())
@@ -225,7 +226,7 @@ def search_result(search_str):
 @app.route('/search_topic/<topic_query>', methods=['GET'])
 def search_topic(topic_query):
     """Shows a list of posts under the specific tag being queried."""
-    topic = Topic.query.filter_by(id=topic_query).first()
+    topic = Topic.query.filter_by(tag_name=topic_query).first()
     return render_template('topic.html', topic=topic, check_if_upvoted=check_if_upvoted,
             check_if_downvoted=check_if_downvoted)
 

@@ -88,7 +88,7 @@
         </form>
 
         {% for topic in post.topics if post.topics %}
-        <a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a>
+        <a href="{{ url_for('search_topic', topic_query=topic.tag_name) }}">{{ topic.tag_name }}</a>
         {% endfor %}
 
     </div>
