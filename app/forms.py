@@ -17,7 +17,7 @@ class SubmitForm(FlaskForm):
         The base text of the post, if needed."""
     
     title = StringField('Title', validators=[Length(min=0, max=100), DataRequired()])
-    topics = StringField('Topics', validators=[DataRequired()])
+    topics = StringField('Tags (Can only input one currently)', validators=[DataRequired()])
     text = StringField('Text', validators=[Length(min=0, max=100)])
     link = StringField('Link', validators=[Length(min=0, max=240)])
     event = StringField('Event (optional)', validators=[Length(min=0, max=150)])

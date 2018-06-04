@@ -250,3 +250,8 @@ def rules():
 def about():
     """Returns the about html file."""
     return render_template('about.html')
+
+@app.route('/contributing', methods=['GET'])
+def contributing():
+    """Returns the contributing html file."""
+    return render_template('contributing.html')

@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+
     <h3>Frequenty Asked Questions:</h3>
-    <h4>Write an FAQ here ples:</h4>
-    <p>So here is some yabber about how the site works.....</p>
+        <h4>What is this site?</h4>
+            <p>Please refer to the <a href={{ url_for('about') }}>about page.</a></p>
+
+        <h4>What do the arrows represent?</h4>
+            <p>The arrows are used for voting, the up arrow being a vote for
+               and the down arrow being against. Once voted the post's score
+               will change according to which arrow was pressed and then either
+               be seen and celebrated by everybody or doomed to the pits of
+               obscurity.</p>
+
 {% endblock %}
