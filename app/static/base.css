@@ -163,3 +163,12 @@ footer a{
     font-size: 15px;
     padding-top: 5px;
 }
+
+#contributing-container {
+    text-align: center;
+    display: block;
+}
+
+#contributing-container p {
+    margin-bottom: 15px;
+}
