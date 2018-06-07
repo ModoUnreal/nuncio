@@ -3,7 +3,7 @@ from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.helpers import redirect_url, get_posts_from_topic, check_if_upvoted, check_if_downvoted, check_topic_exists, check_if_given_importance
 from app.decorators import update_user
-from app.models import User, Post, Comment, Topic, find_users_post
+from app.models import User, Post, Comment, Topic, Event, find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
 import datetime
@@ -40,14 +40,13 @@ def submit():
         if check_topic_exists(form.topics.data):
             topic = Topic.query.filter_by(tag_name=form.topics.data).first()
             post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[topic],
-                    event=form.event.data)
-
+                    event=Event(event_name=form.event.data))
 
         elif not check_topic_exists(form.topics.data):
             post = Post(title=form.title.data, text=form.text.data,
                     user_id=current_user.id,
                     topics=[Topic(tag_name=form.topics.data)],
-                    event=form.event.data)
+                    event=Event(event_name=form.event.data))
 
         # Checks to see if post is link or url.
         if form.link.data == "":
