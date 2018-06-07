@@ -1,7 +1,6 @@
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from flask_login import UserMixin
 from math import log
 
@@ -148,7 +147,7 @@ class Post(db.Model):
                     secondary=topics_table,
                     backref="posts")
 
-    event = db.Column(db.String(150))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
 
     created_on = db.Column(db.DateTime, default=db.func.now())
     is_link = db.Column(db.Boolean, default=True)
@@ -237,6 +236,28 @@ class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True, unique=True)
 
+class Event(db.Model):
+    """Model for the event table
+    
+    Represents all the events on the website.
+    An event is more specific than a topic and a post can only have one event.
+    Therefore posts can also be organisd by the specific event it has,
+    as an event can have many posts.
+    
+    Parameters
+    ----------
+    id : int
+        Unique id which is different for all events.
+
+    event_name : str
+        A unique event name which is also specific to an event."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String(150), index=True, unique=True)
+    posts = db.relationship('Post', backref='event', lazy='dynamic')
+
+    def __repr__(self):
+        return self.event_name
 
 @login.user_loader
 def load_user(id):
