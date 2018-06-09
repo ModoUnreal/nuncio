@@ -229,6 +229,13 @@ def search_topic(topic_query):
     return render_template('topic.html', topic=topic, check_if_upvoted=check_if_upvoted,
             check_if_downvoted=check_if_downvoted)
 
+@app.route('/event/<event_query>', methods=['GET'])
+def search_event(event_query):
+    """Shows a list of events under the specific event being queried."""
+    event = Event.query.filter_by(event_name=event_query).first()
+    return render_template('event.html', event=event, check_if_upvoted=check_if_upvoted,
+            check_if_downvoted=check_if_downvoted)
+
 @app.route('/faq', methods=['GET'])
 def faq():
     """Returns the faq html file."""

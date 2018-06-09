@@ -13,9 +13,13 @@
                     
                 {% endif %}
 
-                <div id="post-title-event">
-                    <td style="color: #888; padding-left: 7px; font-size: 12px; padding-top: 5px;">{{ post.event }}</td>
-                </div>
+                {% if post.event %}
+                    <div id="post-title-event">
+                        <td><a href="{{ url_for('search_event', event_query=post.event.event_name) }}"style="color: #888; padding-left: 7px; font-size: 12px; padding-top: 5px;">
+                            {{ post.event }}
+                    </a></td>
+                    </div>
+                {% endif %}
 
             </div>
 
