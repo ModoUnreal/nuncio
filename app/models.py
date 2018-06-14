@@ -253,7 +253,7 @@ class Event(db.Model):
         A unique event name which is also specific to an event."""
 
     id = db.Column(db.Integer, primary_key=True)
-    event_name = db.Column(db.String(150), index=True, unique=True)
+    event_name = db.Column(db.String(150), index=True)
     posts = db.relationship('Post', backref='event', lazy='dynamic')
 
     def __repr__(self):
