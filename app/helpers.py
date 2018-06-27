@@ -3,7 +3,7 @@ This code is used to store any helper functions...
 """
 from flask import request, url_for
 from flask_login import AnonymousUserMixin
-from app.models import Topic
+from app.models import Topic, Event
 
 
 def redirect_url():
@@ -44,6 +44,13 @@ def check_if_downvoted(test_post, user):
 def check_topic_exists(tag_name):
     """Checks whether a topic exists."""
     if Topic.query.filter_by(tag_name=tag_name).first() != None:
+        return True
+
+    return False
+
+def check_event_exists(event_name):
+    """Checks whether an event exists."""
+    if Event.query.filter_by(event_name=event_name).first() != None:
         return True
 
     return False
