@@ -6,7 +6,7 @@ from flask_testing import TestCase
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app import create_app, db
-from app.models import Post, Topic
+from app.models import Post, Topic, Event
 
 
 class PostTestCase(TestCase):
@@ -34,7 +34,7 @@ class PostTestCase(TestCase):
         """Tests whether posts can be put inside the database."""
         self.post = Post(title="Title", text="Text", user_id=1,
                     topics=[Topic(tag_name="topic1"),
-                    Topic(tag_name="topic2")], event="Test")
+                    Topic(tag_name="topic2")], event=Event(event_name="Test"))
         self.post.upvotes = 1
         self.post.downvotes = 0
         self.post.importance = 1
