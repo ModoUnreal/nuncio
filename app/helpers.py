@@ -58,3 +58,7 @@ def check_event_exists(event_name):
 def check_if_given_importance(test_post, user):
     """Checks whether a user has given importance to a post or not."""
     return any(post.id == test_post.id for post in user.given_importance_to)
+
+def unvote():
+    """Used to unvote any posts a user has voted."""
+    pass
