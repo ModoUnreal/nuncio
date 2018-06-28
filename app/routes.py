@@ -15,8 +15,14 @@ def index():
     """View function for the index site, basically the main site.
        Sorts posts by hotness"""
     page = request.args.get('page', 1, type=int)
+
+    posts = Post.query.order_by(Post.hotness.desc())
+    for post in posts:
+        post.set_age()
+
     posts = Post.query.order_by(Post.hotness.desc()).paginate(
             page, app.config['POSTS_PER_PAGE'], False)
+
     next_url = url_for('index', page=posts.next_num) \
             if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \
@@ -85,6 +91,10 @@ def user(username):
        as there isn't much use for it, except for listing specific posts."""
     user = User.query.filter_by(username=username).first_or_404()
     posts = find_users_post(user)
+
+    for post in posts:
+        post.set_age()
+
     return render_template('user.html', user=user, posts=posts, check_if_upvoted=check_if_upvoted,
             check_if_downvoted=check_if_downvoted)
 
@@ -95,6 +105,8 @@ def item(post_id):
        yet to be sorted by popularity."""
 
     post = Post.query.filter_by(id=post_id).first_or_404()
+
+    post.set_age()
 
     form = CommentForm()
     if form.validate_on_submit():
@@ -224,6 +236,12 @@ def search_result(search_str):
     user_query = User.query.filter_by(username=search_str).first()
 
     post_with_topic = get_posts_from_topic(topic_query)
+
+    for post in post_query:
+        post.set_age()
+
+    for post in post_with_topic:
+        post.set_age()
 
     return render_template('search_result.html', post_query=post_query,
             posts=post_with_topic, user=user_query, check_if_upvoted=check_if_upvoted, check_if_downvoted=check_if_downvoted)

@@ -95,5 +95,7 @@
         <a href="{{ url_for('search_topic', topic_query=topic.tag_name) }}">{{ topic.tag_name }}</a>
         {% endfor %}
 
+        <p>Posted {{ post.age }} minutes ago.</p>
+
     </div>
 </div>

@@ -156,9 +156,18 @@ class Post(db.Model):
         return '<Post {}>'.format(self.text)
 
     def get_age(self):
-        self.age = int((self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds())
+
+        self.raw_diff = (datetime.datetime.utcnow() - self.timestamp)
+        self.minute_diff = int(round(self.raw_diff.total_seconds() / 60))
+        if self.minute_diff > 60:
+            self.hourly_diff = self.minute_diff / 60
+            return self.hourly_diff
+
+        return self.minute_diff
+
+    def set_age(self):
+        self.age = self.get_age()
         db.session.commit()
-        return self.age
 
     def get_score(self):
         self.score = self.upvotes - self.downvotes
@@ -166,7 +175,7 @@ class Post(db.Model):
         return self.score
 
     def get_hotness(self):
-        self.get_age()
+        self.set_age()
         self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))) / 45000)
         db.session.commit()
 
@@ -181,7 +190,6 @@ class Post(db.Model):
         if self.importance == None:
             self.importance = 10
             db.session.commit()
-
 
 class Comment(db.Model):
     """Model for the comments table
