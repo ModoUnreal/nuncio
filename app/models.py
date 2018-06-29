@@ -83,6 +83,7 @@ class User(UserMixin, db.Model):
         return self.scores
 
 
+# Add documentation here please
 class Post(db.Model):
     """Model for the posts table.
        
@@ -143,6 +144,14 @@ class Post(db.Model):
     hotness = db.Column(db.Integer)
 
     age = db.Column(db.Integer)
+    time_type = db.Column(db.Integer)
+
+    # Time-type determines whether the time is displayed in minutes/hours/days.
+    # 0 = display in minutes
+    # 1 = display in hours
+    # 2 = display in days
+    # If the number is < 0 or > 2 then change back to 2.
+
     topics = db.relationship('Topic',
                     secondary=topics_table,
                     backref="posts")
@@ -155,18 +164,41 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.text)
 
-    def get_age(self):
+    def get_minutes(self, input_time=datetime.datetime.utcnow()):
 
-        self.raw_diff = (datetime.datetime.utcnow() - self.timestamp)
+        self.raw_diff = (input_time - self.timestamp)
         self.minute_diff = int(round(self.raw_diff.total_seconds() / 60))
         if self.minute_diff > 60:
-            self.hourly_diff = self.minute_diff / 60
-            return self.hourly_diff
+            return self.get_hours(self.minute_diff)
 
+        self.time_type = 0
+        db.session.commit()
         return self.minute_diff
 
+    def get_hours(self, minute_diff):
+        self.hourly_diff = int(round(minute_diff / 60))
+        if self.hourly_diff > 24:
+            return self.get_days(self.hourly_diff)
+
+        self.time_type = 1
+        db.session.commit()
+        return self.hourly_diff
+
+    def get_days(self, hourly_diff):
+        self.daily_diff = int(round(hourly_diff / 60))
+        self.time_type = 2
+        db.session.commit()
+
+        return self.daily_diff
+
+    def check_time_type(self):
+        if self.time_type > 2 or self.time_type < 0:
+            self.time_type = 2
+            db.session.commit()
+
     def set_age(self):
-        self.age = self.get_age()
+        self.age = self.get_minutes()
+        self.check_time_type()
         db.session.commit()
 
     def get_score(self):

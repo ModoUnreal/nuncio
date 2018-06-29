@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+from datetime import datetime
 
 from flask_testing import TestCase
 
@@ -133,3 +134,31 @@ class PostTestCase(TestCase):
         comments = Comment.query.filter_by(post_id=self.post.id)
         for i in comments:
             self.assertEqual(i.text, self.comment.text)
+
+    def test_time_type_setting(self):
+        """Tests whether the time type can be set correctly."""
+        self.post = Post(title="Title", text="Text", user_id=1,
+                topics=[Topic(tag_name="topic1"), Topic(tag_name="topic2")], id=1)
+        # Difference between the two timestamps is in minutes.
+        # So timetype should equal 0.
+        self.post.timestamp = datetime(2018, 6, 29, 10, 00, 00)
+        self.test_timestamp = datetime(2018, 6, 29, 10, 2, 00)
+        self.post.get_minutes(input_time=self.test_timestamp)
+        self.assertEqual(0, self.post.time_type)
+        self.assertFalse(1 == self.post.time_type)
+
+        # Difference between the two timestamps is in hours.
+        # So timetype should equal 1.
+        self.post.timestamp = datetime(2018, 6, 29, 10, 00, 00)
+        self.test_timestamp = datetime(2018, 6, 29, 11, 2, 00)
+        self.post.get_minutes(input_time=self.test_timestamp)
+        self.assertEqual(1, self.post.time_type)
+        self.assertFalse(2 == self.post.time_type)
+
+        # Difference between the two timestamps is in hours.
+        # So timetype should equal 1.
+        self.post.timestamp = datetime(2018, 6, 29, 10, 00, 00)
+        self.test_timestamp = datetime(2018, 6, 30, 11, 2, 00)
+        self.post.get_minutes(input_time=self.test_timestamp)
+        self.assertEqual(2, self.post.time_type)
+        self.assertFalse(1 == self.post.time_type)

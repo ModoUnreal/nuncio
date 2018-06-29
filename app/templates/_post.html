@@ -21,6 +21,20 @@
                     </div>
                 {% endif %}
 
+                <div id="post-time">
+                    {% if post.time_type == 0 %}
+                        <td>Posted {{ post.age }} minutes ago.</td>
+                    {% endif %}
+            
+                    {% if post.time_type == 1 %}
+                        <td>Posted {{ post.age }} hours ago.</td>
+                    {% endif %}
+            
+                    {% if post.time_type == 2 %}
+                        <td>Posted {{ post.age }} days ago.</td>
+                    {% endif %}
+                </div>
+
             </div>
 
             <br />
@@ -94,8 +108,6 @@
         {% for topic in post.topics if post.topics %}
         <a href="{{ url_for('search_topic', topic_query=topic.tag_name) }}">{{ topic.tag_name }}</a>
         {% endfor %}
-
-        <p>Posted {{ post.age }} minutes ago.</p>
 
     </div>
 </div>
