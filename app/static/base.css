@@ -77,10 +77,6 @@ footer a{
     font-size: 12px;
 }
 
-#post-time td {
-    font-color: #888;
-    font-size: 12px;
-}
 
 #voting{
     width: 60px;
@@ -121,7 +117,7 @@ footer a{
 }
 
 #post-body {
-    margin-left: 78px;
+    margin-left: 68px;
 }
 
 #extended-information {

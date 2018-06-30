@@ -26,24 +26,7 @@
                     </div>
                 {% endif %}
 
-                <div id="post-time">
-                    {% if post.time_type == 0 %}
-                        <td>Posted {{ post.age }} minutes ago.</td>
-                    {% endif %}
-            
-                    {% if post.time_type == 1 %}
-                        <td>Posted {{ post.age }} hours ago.</td>
-                    {% endif %}
-            
-                    {% if post.time_type == 2 %}
-                        <td>Posted {{ post.age }} days ago.</td>
-                    {% endif %}
-                </div>
-
-            </div>
             <br />
-    
-
             <div id="voting">
 
                 <div id="voting-container">
@@ -85,24 +68,38 @@
     </table>
 
     <div id="extended-information">
-        <p>by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a> Score: {{ post.score }}</p>
-    </div>        
+        <p>by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a>
+
+        {% if post.time_type == 0 %}
+            | {{ post.age }} minutes ago
+        {% endif %}
+    
+        {% if post.time_type == 1 %}
+            | {{ post.age }} hours ago
+        {% endif %}
+    
+        {% if post.time_type == 2 %}
+            | {{ post.age }} days ago
+        {% endif %}
+
+        | Score: {{ post.score }}</p>
+    </div> 
 
     <div id="bottom-links">
 
         <form action="{{ url_for('item', post_id=post.id) }}" method=get>
-            <input type="submit" value="View Comments">
+            <input type="submit" value="| View Comments">
         </form>
 
         {% if current_user.username == post.author.username %}
             <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
-                <input type="submit" value="Delete">
+                <input type="submit" value="| Delete">
 
             </form>
         {% endif %}
 
         <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
-            <input type="submit" name="important" value="important">
+            <input type="submit" name="important" value="| important">
         </form>
 
         {% for topic in post.topics if post.topics %}
