@@ -185,7 +185,7 @@ class Post(db.Model):
         return self.hourly_diff
 
     def get_days(self, hourly_diff):
-        self.daily_diff = int(round(hourly_diff / 60))
+        self.daily_diff = int(round(hourly_diff / 24))
         self.time_type = 2
         db.session.commit()
 
