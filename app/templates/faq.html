@@ -1,15 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3>Frequenty Asked Questions:</h3>
-        <h4>What is this site?</h4>
-            <p>Please refer to the <a href={{ url_for('about') }}>about page.</a></p>
+    <center>
+        <table width="500">
+            <tr valign="top">
+                <td>
+                    <h3>Frequenty Asked Questions:</h3>
+                        <h4>What is this site?</h4>
+                            <p>Please refer to the <a href={{ url_for('about') }}>about page.</a></p>
+                
+                        <h4>What do the arrows represent?</h4>
+                            <p>The arrows are used for voting, the up arrow being a vote for
+                               and the down arrow being against. Once voted the post's score
+                               will change according to which arrow was pressed and then either
+                               be seen and celebrated by everybody or doomed to the pits of
+                               obscurity.</p>
+                
+                        <h4>What does the important button do?</h4>
+                            <p>Importance is an alternative to voting up. The difference here is that giving importance
+                               gives the post a much greater boost in terms of how long it stays in it's highest position
+                               and it also allows a post to move the ranks a lot more quickly. This may sound all great and all
+                               however the user that gives importance to a post does so at the expense of 5 of his own attained points.
+                               This should prevent a mass of people from giving importance to a post due to bias or political beliefs.</p>
+                
+                        <h4>So when should I give importance?</h4>
+                            <p>I guess if you feel that a certain post or topic is not getting enough attention, that's all.</p>
+                
+                
+                        <h4>What exactly is a topic?</h4>
+                            <p>A topic is a like a hashtag on sites like Twitter. It's primarily used to quickly describe the general
+                               subject area a post is about. For example say a post is made about a robbery in London the topic
+                               given would be called London and maybe another one called robbery.</p>
+                
+                        <h4>And this event thing?</h4>
+                            <p>An event is the specific event a post is about. This is used so that a number of posts about the
+                               same topic, from different sources, can be easily ordered and seen by users.
+                               For example, a post about a car crash in New York would have "Car crash in New York" as it's event name,
+                               whilst the topic tag would probably be called New York.</p>
 
-        <h4>What do the arrows represent?</h4>
-            <p>The arrows are used for voting, the up arrow being a vote for
-               and the down arrow being against. Once voted the post's score
-               will change according to which arrow was pressed and then either
-               be seen and celebrated by everybody or doomed to the pits of
-               obscurity.</p>
-
+               </td>
+           </tr>
+       </table>
+    </center>
 {% endblock %}

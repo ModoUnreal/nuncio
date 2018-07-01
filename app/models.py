@@ -196,6 +196,11 @@ class Post(db.Model):
             self.time_type = 2
             db.session.commit()
 
+    def make_time_positive(self):
+        if self.age < 0:
+            self.age * -1
+            db.session.commit()
+
     def set_age(self):
         self.age = self.get_minutes()
         self.check_time_type()

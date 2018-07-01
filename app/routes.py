@@ -19,6 +19,7 @@ def index():
     posts = Post.query.order_by(Post.hotness.desc())
     for post in posts:
         post.set_age()
+        post.get_hotness()
 
     posts = Post.query.order_by(Post.hotness.desc()).paginate(
             page, app.config['POSTS_PER_PAGE'], False)
@@ -285,3 +286,10 @@ def about():
 def contributing():
     """Returns the contributing html file."""
     return render_template('contributing.html')
+
+@app.route('/feature-request', methods=['GET'])
+def feature_request():
+    """Returns the feature_request html file."""
+    topic = Topic.query.filter_by(tag_name="feature-request").first()
+
+    return render_template('feature-request.html', topic=topic, check_if_downvoted=check_if_downvoted, check_if_upvoted=check_if_upvoted)

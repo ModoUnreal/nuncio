@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <center>
+        <table width="500">
+            <tr valign="top">
+                <td>
+                    <div id=feature-request>
+                        <h3>Feature Request</h3>
+                        <p>Use the <span>feature-request</span> topic tag to post any of your requests to improve
+                           the site, remember that you as a user know better than the developers.</p>
+
+                        <br>
+
+                        <h3>Current features being requested:</h3>
+                        <br>
+
+                        {% for post in topic.posts if post %}
+                            {% include '_post.html' %}
+                        {% endfor %}
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+{% endblock %}

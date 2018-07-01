@@ -173,3 +173,10 @@ footer a{
 #contributing-container p {
     margin-bottom: 15px;
 }
+
+#feature-request span {
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: lightblue;
+}
