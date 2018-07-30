@@ -144,6 +144,7 @@ class Post(db.Model):
     hotness = db.Column(db.Integer)
 
     age = db.Column(db.Integer)
+    seconds = db.Column(db.Integer)
     time_type = db.Column(db.Integer)
 
     # Time-type determines whether the time is displayed in minutes/hours/days.
@@ -163,6 +164,12 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.text)
+
+    def get_seconds(self):
+        self.raw_diff = datetime.datetime.utcnow() - self.timestamp
+        self.seconds = self.raw_diff.total_seconds()
+        db.session.commit()
+        return self.seconds
 
     def get_minutes(self, input_time=datetime.datetime.utcnow()):
 
@@ -212,8 +219,12 @@ class Post(db.Model):
         return self.score
 
     def get_hotness(self):
-        self.set_age()
-        self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))) / 45000)
+        self.get_seconds()
+#        self.raw_diff = (input_time - self.timestamp)
+#        self.total_seconds = self.raw_diff.total_seconds()
+#        self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))))
+        db.engine.execute(
+                "UPDATE post SET hotness=(upvotes - downvotes) * seconds * importance")
         db.session.commit()
 
     def make_vote_int(self):
@@ -222,6 +233,10 @@ class Post(db.Model):
 
         if self.downvotes == None:
             self.downvotes = 1
+
+    def make_hotness_int(self):
+        if self.hotness == None:
+            self.get_hotness()
 
     def make_importance_int(self):
         if self.importance == None:

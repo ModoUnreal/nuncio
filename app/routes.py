@@ -19,7 +19,8 @@ def index():
     posts = Post.query.order_by(Post.hotness.desc())
     for post in posts:
         post.set_age()
-        post.get_hotness()
+        post.hotness = post.get_hotness()
+        db.session.commit()
 
     posts = Post.query.order_by(Post.hotness.desc()).paginate(
             page, app.config['POSTS_PER_PAGE'], False)
@@ -211,7 +212,6 @@ def give_importance(post_id):
 
         current_user.given_importance_to.append(post)
         current_user.scores = current_user.sum_post_scores()
-        post.hotness = post.get_hotness()
         db.session.commit()
 
     return redirect(redirect_url())
