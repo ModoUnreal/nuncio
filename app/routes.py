@@ -19,7 +19,7 @@ def index():
     posts = Post.query.order_by(Post.hotness.desc())
     for post in posts:
         post.set_age()
-        post.hotness = post.get_hotness()
+        post.get_hotness()
         db.session.commit()
 
     posts = Post.query.order_by(Post.hotness.desc()).paginate(
