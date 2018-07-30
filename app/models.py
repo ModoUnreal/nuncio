@@ -130,11 +130,11 @@ class Post(db.Model):
     Posts-Topics = Many to Many
     """
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(100))
+    text = db.Column(db.String(30000))
     link = db.Column(db.String(240))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.String(100))
+    title = db.Column(db.String(250))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
     score = db.Column(db.Float)
@@ -313,7 +313,7 @@ class Event(db.Model):
         A unique event name which is also specific to an event."""
 
     id = db.Column(db.Integer, primary_key=True)
-    event_name = db.Column(db.String(150), index=True)
+    event_name = db.Column(db.String(20000), index=True)
     posts = db.relationship('Post', backref='event', lazy='dynamic')
 
     def __repr__(self):

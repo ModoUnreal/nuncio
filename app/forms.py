@@ -16,11 +16,11 @@ class SubmitForm(FlaskForm):
     text : str
         The base text of the post, if needed."""
     
-    title = StringField('Title', validators=[Length(min=0, max=100), DataRequired()])
+    title = StringField('Title', validators=[Length(min=0, max=250), DataRequired()])
     topics = StringField('Tags (Can only input one currently)', validators=[DataRequired()])
-    text = StringField('Text', validators=[Length(min=0, max=100)])
+    text = StringField('Text', validators=[Length(min=0, max=30000)])
     link = StringField('Link', validators=[Length(min=0, max=240)])
-    event = StringField('Event (optional)', validators=[Length(min=0, max=150)])
+    event = StringField('Event (optional)', validators=[Length(min=0, max=300)])
     submit = SubmitField('Send')
 
 class CommentForm(FlaskForm):
@@ -30,7 +30,7 @@ class CommentForm(FlaskForm):
     ----------
     comment : str
         Contains the text for the comment."""
-    comment = TextAreaField('Comment', validators=[Length(min=0, max=140)])
+    comment = TextAreaField('Comment', validators=[Length(min=0, max=20000)])
     submit = SubmitField('Send')
 
 class SearchForm(FlaskForm):
