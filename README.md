@@ -2,7 +2,7 @@
 The fair news aggregator, allowing for all kinds of news from
 any real news sources.
 
-https://nuncio-prod.herokuapp.com
+https://nuncio-production.herokuapp.com
 
 ## Setting up
 Get the source code using the following:
