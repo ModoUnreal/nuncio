@@ -220,6 +220,7 @@ class Post(db.Model):
 
     def get_hotness(self):
         self.get_seconds()
+        self.set_age()
 #        self.raw_diff = (input_time - self.timestamp)
 #        self.total_seconds = self.raw_diff.total_seconds()
 #        self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))))
