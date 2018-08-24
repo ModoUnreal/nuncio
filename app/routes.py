@@ -9,6 +9,7 @@ from app import app, db
 import datetime
 
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -19,7 +20,7 @@ def index():
     posts = Post.query.order_by(Post.hotness.desc())
     for post in posts:
         post.set_age()
-        post.get_hotness()
+        post.set_hotness()
         db.session.commit()
 
     posts = Post.query.order_by(Post.hotness.desc()).paginate(
@@ -78,7 +79,7 @@ def submit():
         post.downvotes = 0
         post.importance = 10
         post.timestamp = datetime.datetime.utcnow()
-        post.hotness = post.get_hotness()
+        post.hotness = post.set_hotness()
         post.score = post.get_score()
         db.session.add(post)
         db.session.commit()
@@ -173,7 +174,7 @@ def vote(post_id):
                 current_user.downvoted_on.remove(post)
 
             post.get_score()
-            post.get_hotness()
+            post.set_hotness()
             post.author.sum_post_scores()
             db.session.commit()
 
@@ -186,7 +187,7 @@ def vote(post_id):
                 current_user.upvoted_on.remove(post)
 
             post.get_score()
-            post.get_hotness()
+            post.set_hotness()
             post.author.sum_post_scores()
             db.session.commit()
 

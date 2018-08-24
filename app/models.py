@@ -218,14 +218,13 @@ class Post(db.Model):
         db.session.commit()
         return self.score
 
-    def get_hotness(self):
+    def set_hotness(self):
         self.get_seconds()
         self.set_age()
 #        self.raw_diff = (input_time - self.timestamp)
 #        self.total_seconds = self.raw_diff.total_seconds()
 #        self.hotness = round((log(max(abs(self.upvotes - self.downvotes), 1), 10) * (self.age * log(self.importance))))
-        db.engine.execute(
-                "UPDATE post SET hotness=(upvotes - downvotes) * importance / seconds")
+        self.hotness = ((self.upvotes - self.downvotes + 1) ** self.importance) / self.seconds
         db.session.commit()
 
     def make_vote_int(self):
