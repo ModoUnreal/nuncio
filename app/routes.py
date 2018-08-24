@@ -79,7 +79,6 @@ def submit():
         post.downvotes = 0
         post.importance = 10
         post.timestamp = datetime.datetime.utcnow()
-        post.hotness = post.set_hotness()
         post.score = post.get_score()
         db.session.add(post)
         db.session.commit()
