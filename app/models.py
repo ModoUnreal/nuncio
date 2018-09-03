@@ -167,7 +167,7 @@ class Post(db.Model):
 
     def get_seconds(self):
         self.raw_diff = datetime.datetime.utcnow() - self.timestamp
-        self.seconds = self.raw_diff.total_seconds()
+        self.seconds = self.raw_diff.total_seconds() + 1
         db.session.commit()
         return self.seconds
 
